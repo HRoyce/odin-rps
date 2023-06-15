@@ -1,74 +1,166 @@
-//I need event listeners for hover and for click.
-//On hover button should enlarge, drop shadow change slightly and color change slightly.
-//I want the result of each round to appear on the stage.
+const dialog = document.querySelector('.dialog');
+const lPanel = document.querySelector('.lPanel');
+const rPanel = document.querySelector('.rPanel');
+const stage = document.querySelector('#stage');
+const rock = document.getElementById('rock');
+const paper = document.getElementById('paper');
+const scissors = document.getElementById('scissors');
+let player;
+let comp;
+let pScore = 0;
+let cScore = 0;
+let round = 0;
+waitTime = 1000;
+
 function getComputerChoice(){
     let choice = Math.floor(Math.random()*3) + 1 
-    if(choice == 1){choice = "ROCK"}
-    else if(choice == 2){ choice = "PAPER"}
-    else{ choice = "SCISSORS"}
+    if(choice == 1){
+        choice = "ROCK"; 
+        const log = document.createElement("div");
+        log.textContent ="Rock";
+        rPanel.appendChild(log);
+    }
+    else if(choice == 2){ 
+        choice = "PAPER"
+        const log = document.createElement("div");
+        log.textContent ="Paper";
+        rPanel.appendChild(log);
+    }
+    else{ 
+        const log = document.createElement("div");
+        log.textContent ="Scissors";
+        rPanel.appendChild(log);
+        choice = "SCISSORS"
+    }
     return choice;
 }
-function getPlayerChoice(){
-let invalidChoice = true;
-while(invalidChoice){
-    let pchoice = prompt("Please enter Rock, Paper or Scissors", "");
-if(pchoice == null){alert("Please enter a valid response.")}
-else if(pchoice.toUpperCase() == "ROCK" ||pchoice.toUpperCase() == "PAPER" || pchoice.toUpperCase() == "SCISSORS")
-{ return pchoice.toUpperCase()}
-else{alert("Please enter a valid response.")}
-}
+        
 
-}        
+function addHover( a ){
+    a.addEventListener('mouseover',() =>{
+        a.classList.add('hovered');
+    });
+    a.addEventListener('mouseout',() =>{
+        a.classList.remove('hovered');
+    });
+}
+addHover(rock);
+addHover(paper);
+addHover(scissors);
+rock.addEventListener('click',() =>{
+    rock.classList.toggle('selected');
+    rock.classList.remove('hovered');
+    const log = document.createElement("div");
+    log.textContent ="Rock";
+    lPanel.appendChild(log);
+    player = "ROCK";
+    play(getComputerChoice(), player);
+    setTimeout(function(){
+        removeChoice();
+    }, waitTime);
+    if(round>=5){
+        calculateResult();
+    }
+    console.log(round);
+    
+});
+paper.addEventListener('click',() =>{
+    paper.classList.toggle('selected')
+    paper.classList.remove('hovered');
+    const log = document.createElement("div");
+    log.textContent ="Paper";
+    lPanel.appendChild(log);
+    player = "PAPER"
+    play(getComputerChoice(), player);
+    setTimeout(function(){
+        removeChoice();
+    }, waitTime);
+    if(round>=5){
+        calculateResult();
+    }
+
+});
+scissors.addEventListener('click',() =>{
+    scissors.classList.toggle('selected')
+    scissors.classList.remove('hovered');
+    const log = document.createElement("div");
+    log.textContent ="Scissors";
+    lPanel.appendChild(log);
+    player = "SCISSORS"
+    play(getComputerChoice(), player);
+    setTimeout(function(){
+        removeChoice();
+    }, waitTime);
+    if(round>=5){
+        calculateResult();
+    }
+    
+});
+function removeChoice(){
+    scissors.classList.remove('selected');
+    paper.classList.remove('selected');
+    rock.classList.remove('selected');
+};
 function play(computerSelection, playerSelection){
-let result;
+    let result;
+    round++;
+    console.log(`It is round ${round} and pScore is ${pScore}`)
 if(computerSelection.charAt(0) == playerSelection.charAt(0)){
     result = "It's a Tie!";
 }
 else if(computerSelection.charAt(0) == "R"){
-    if(playerSelection.charAt(0) == "P"){ result = "The Player Wins!"}
-    else{result = "The Computer Wins!"}
+    if(playerSelection.charAt(0) == "P"){ 
+        result = "The Player Wins!"; 
+        console.log(pScore);
+        pScore+=1; 
+        console.log(pScore);
+    }
+    else{
+        result = "The Computer Wins!"; 
+        cScore++;
+    }
 }
 else if(computerSelection.charAt(0) == "P"){
-    if(playerSelection.charAt(0) == "S"){ result = "The Player Wins!"}
-    else{result = "The Computer Wins!"}
+    if(playerSelection.charAt(0) == "S"){ 
+        result = "The Player Wins!"; 
+        console.log(pScore);
+        pScore+=1; 
+        console.log(pScore);
+    }
+    else{
+        result = "The Computer Wins!"; 
+        cScore++;}
 }
 else if(computerSelection.charAt(0) == "S"){
-    if(playerSelection.charAt(0) == "R"){ result = "The Player Wins!"}
-    else{result = "The Computer Wins!"}
+    if(playerSelection.charAt(0) == "R"){ 
+        result = "The Player Wins!"; 
+        console.log(pScore);
+        pScore+=1; 
+        console.log(pScore);
+    }
+    else{result = "The Computer Wins!"; cScore++;}
 }
 else{result = "Something went wrong..."}
-
-alert("The Computer chose: " + comp + "." +
-     "\nThe Player chose: " + player +".\n" + result);
     }
-// let player = getPlayerChoice();
-// let comp = getComputerChoice();
-// play(comp, player);
+function calculateResult(){
+    const resultBox = document.createElement("div");
+    if(pScore > cScore){
+        resultBox.textContent = "Player Wins! Player:" + `${pScore}` + " PC:" + `${cScore}`;
+        
+    }
+    else if(pScore == cScore){
+        resultBox.textContent = "It's a Tie! Player:" + `${pScore}` + " PC:" + `${cScore}`;
+    }
+    else{
+        resultBox.textContent = "Computer Wins! Player:" + `${pScore}` + " PC:" + `${cScore}`;
+    }
+    setTimeout( () => {
+        dialog.appendChild(resultBox);
+    }, 1000);
+    round = 0;
+    pScore = 0;
+    cScore = 0;
+     
+};
 
-const stage = document.querySelector('#stage');
-console.log(stage);
-//stage.addEventListener('click', (e) =>{
-    //stage.classList.toggle('hovered');
-    
-//});
-const rock = document.getElementById('rock');
-const paper = document.getElementById('paper');
-const scissors = document.getElementById('scissors');
-rock.addEventListener('mouseover',() =>{
-    rock.classList.add('hovered');
-});
-rock.addEventListener('mouseout',() =>{
-    rock.classList.remove('hovered');
-});
-paper.addEventListener('mouseover',() =>{
-    paper.classList.add('hovered');
-});
-paper.addEventListener('mouseout',() =>{
-    paper.classList.remove('hovered');
-});
-scissors.addEventListener('mouseover',() =>{
-    scissors.classList.add('hovered');
-});
-scissors.addEventListener('mouseout',() =>{
-    scissors.classList.remove('hovered');
-});
+

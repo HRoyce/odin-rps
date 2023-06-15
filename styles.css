@@ -1,52 +1,90 @@
 body{
     min-height:100vh;
-    border-style:solid;
+    /* border-style:solid;
     border-color:red;
-    border-width:5px;
+    border-width:5px; */
     display: flex;
     flex-direction: column;
     margin:0px;
     justify-content: space-between;
+    font-family: 'Roboto', sans-serif;
 }
 #stage{
-    border-style:solid;
-    border-color:black;
-    border-width:5px;
-    flex:1;
-    
-}
-#options{
-    display:flex;
-    background-color:rgb(155, 149, 149);
-    justify-content: space-evenly;
     /* border-style:solid;
     border-color:black;
     border-width:5px; */
+    display:flex;
+    flex:1;
+    flex-direction:row;
+    justify-content: center;
+    background-color:rgb(197, 31, 31)
+    
+}
+.dialog{
+    display: flex;
+    background-color:lightgrey;
+    flex-direction: column;
+    margin:0;
+    padding:0;
+    width: 50%;
+    font-size: 50px;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.lPanel{
+    width:25%;
+    background-color:rgb(204, 101, 101);
+    font-size:48px;
+    margin-top:0px;
+    padding-top:0px;
+}
+.rPanel{
+    width:25%;
+    background-color:rgb(204, 101, 101);
+    font-size:48px;
+    margin-top:0px;
+    padding-top:0px;
+}
+#options{
+    display:flex;
+    background-color:rgb(0, 0, 0);
+    justify-content: space-evenly;
+    border-top: 2px solid black;
     bottom: 0;
     left: 0;
     right: 0;
     z-index: 5; 
     position: fixed;   
+    height: 90px;
+    align-items: center;
+    
 }
 .option{
     display:flex;
-    height:50px;
-    width:200px;
+    height:80px;
+    width:440px;
     align-items: center;
     justify-content: center;
-    background-color:grey;
+    background-color:rgb(99, 170, 192);
     border-style:solid;
     border-color:black;
-    border-width:5px;
+    border-width:2px;
     border-radius:5px;
-    transition: all .25s ease;
+    transition: all .15s ease;
+    font-size:48px;
+    
 }
 .hovered{
-    scale: 1.5;
+    scale: 1.25;
+    transition: all .15s ease;
+    font-size: 60px;
+    box-shadow: rgb(46, 46, 46) 10px 10px;
+}
+.selected{
+    
     border-color:green;
-    transition: all .25s ease;
-    font-size:25px;
-    text-shadow:green 10px 10px;
+    background-color: rgb(1, 165, 1);
 }
 
 
