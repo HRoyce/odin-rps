@@ -79,7 +79,7 @@ body{
     scale: 1.25;
     transition: all .15s ease;
     font-size: 60px;
-    box-shadow: rgb(46, 46, 46) 10px 10px;
+    box-shadow: rgb(40, 155, 183) 10px 10px;
 }
 .selected{
     
